@@ -7,7 +7,9 @@ import (
 	"net/http"
 	"ujklm23/restful_api/config"
 	"ujklm23/restful_api/controller"
+	"ujklm23/restful_api/exception"
 	"ujklm23/restful_api/helper"
+	"ujklm23/restful_api/middleware"
 	"ujklm23/restful_api/repository"
 	"ujklm23/restful_api/service"
 )
@@ -27,9 +29,11 @@ func main() {
 	router.GET("/api/v1/notes", noteController.FindAll)
 	router.GET("/api/v1/notes/:noteId", noteController.FindById)
 
+	router.PanicHandler = exception.ErrorHandler
+
 	server := http.Server{
-		Addr: "localhost:8080",
-		Handler: router,
+		Addr:    "localhost:8080",
+		Handler: middleware.NewMiddleware(router),
 	}
 
 	err := server.ListenAndServe()

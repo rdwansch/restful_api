@@ -57,7 +57,7 @@ func (repository *NoteRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) [
 
 	var notes []entity.Note
 
-	if rows.Next() {
+	for rows.Next() {
 		note := entity.Note{}
 		err := rows.Scan(&note.Name, &note.Content, &note.Id)
 		helper.PanicIfError(err)

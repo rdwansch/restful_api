@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/go-playground/validator/v10"
+	"ujklm23/restful_api/exception"
 	"ujklm23/restful_api/helper"
 	"ujklm23/restful_api/model/entity"
 	"ujklm23/restful_api/model/web"
@@ -50,7 +51,9 @@ func (service *NoteServiceImpl) Update(ctx context.Context, request web.NoteUpda
 	defer helper.CommitOrRollback(tx)
 
 	_, err = service.NoteRepository.FindById(ctx, tx, request.Id)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err))
+	}
 
 	myNote := entity.Note{
 		Id:      request.Id,
@@ -68,7 +71,9 @@ func (service *NoteServiceImpl) Delete(ctx context.Context, requestId int) {
 	defer helper.CommitOrRollback(tx)
 
 	_, err = service.NoteRepository.FindById(ctx, tx, requestId)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err))
+	}
 
 	service.NoteRepository.Delete(ctx, tx, requestId)
 }
@@ -88,7 +93,9 @@ func (service *NoteServiceImpl) FindById(ctx context.Context, requestId int) web
 	defer helper.CommitOrRollback(tx)
 
 	note, err := service.NoteRepository.FindById(ctx, tx, requestId)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err))
+	}
 
 	return helper.ToNoteResponse(note)
 }
