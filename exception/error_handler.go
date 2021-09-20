@@ -8,13 +8,12 @@ import (
 )
 
 func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interface{}) {
-	if notFoundErr(writer, request, err) {
-		return
-	} else if ValidateErr(writer, request, err) {
-		return
+	switch true {
+	case notFoundErr(writer, request, err):
+	case validateErr(writer, request, err):
+	default:
+		internalServerErr(writer, request, err)
 	}
-
-	internalServerErr(writer, request, err)
 }
 
 func internalServerErr(writer http.ResponseWriter, _ *http.Request, err interface{}) {
@@ -50,7 +49,7 @@ func notFoundErr(writer http.ResponseWriter, _ *http.Request, err interface{}) b
 	return false
 }
 
-func ValidateErr(writer http.ResponseWriter, _ *http.Request, err interface{}) bool {
+func validateErr(writer http.ResponseWriter, _ *http.Request, err interface{}) bool {
 	exception, ok := err.(validator.ValidationErrors)
 	if ok {
 		writer.Header().Add("Content-Type", "application/json")

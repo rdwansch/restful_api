@@ -18,7 +18,7 @@ func NewNoteController(noteService service.NoteService) NoteController {
 }
 
 func (controller *NoteControllerImpl) Create(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	// writer.Header().Add("")
+	writer.Header().Add("Access-Control-Allow-Origin", "*")
 	noteCreateRequest := web.NoteCreateRequest{}
 	helper.ReadJSONFromRequest(request, &noteCreateRequest)
 
