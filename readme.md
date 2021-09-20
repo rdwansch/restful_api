@@ -164,13 +164,26 @@ Response body:
 
 Example: PUT - http://localhost:8080/api/v1/notes/7
 
+Request Body
+
+```json
+{
+  "name": "Hello World",
+  "content": "print('Hello World')"
+}
+```
+
 Response Body
 
 ```json
 {
   "status_code": 200,
   "status": "OK",
-  "data": "Success Delete id: 4"
+  "data": {
+    "id": 7,
+    "name": "Hello World",
+    "content": "print('Hello World')"
+  }
 }
 ```
 
@@ -184,11 +197,7 @@ Response Body
 {
   "status_code": 200,
   "status": "OK",
-  "data": {
-    "id": 4,
-    "name": "SSG",
-    "content": "Server Side Generator"
-  }
+  "data": "Success Delete id: 4"
 }
 ```
 
