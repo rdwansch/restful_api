@@ -6,7 +6,7 @@
 * [HTTP Verbs](https://github.com/ujklm23/restful_api#http-verbs)
 * [Error Handling](https://github.com/ujklm23/restful_api#error-handling)
 * [Versions](https://github.com/ujklm23/restful_api#versions)
-* [Request & Response Examples](https://github.com/ujklm23/restful_api#request--response--examples)
+* [Request & Response Examples](https://github.com/ujklm23/restful_api#request--response-examples)
 * [Architecture](https://github.com/ujklm23/restful_api#architecture)
 
 ### RESTful URLs
@@ -160,7 +160,7 @@ Response body:
 }
 ```
 
-### PUT /notes/7
+### PUT /notes/[id]
 
 Example: PUT - http://localhost:8080/api/v1/notes/7
 
@@ -174,7 +174,7 @@ Response Body
 }
 ```
 
-### DELETE /notes/4
+### DELETE /notes/[id]
 
 Example: DELETE - http://localhost:8080/api/v1/notes/4
 
